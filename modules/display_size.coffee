@@ -1,23 +1,13 @@
-import { BaseModule } from './BaseModule';
+BaseModule = require("./base_module")
 
-export class DisplaySize extends BaseModule {
-    onCreate = () => {
-        // Create the container to hold the size display
-        this.display = document.createElement('div');
-
-        // Apply styles
-        Object.assign(this.display.style, this.options.displayStyles);
-
-        // Attach it
-        this.overlay.appendChild(this.display);
-    };
-
-    onDestroy = () => {};
-
-    onUpdate = () => {
-        if (!this.display || !this.img) {
-            return;
-        }
+class DisplaySize extends BaseModule
+    onCreate: ->
+        @el = document.createElement("div")
+        @el.style = @options.style
+        @overlay.appendChild(@el)
+    onUpdate: ->
+        unless @el
+            return
 
         const size = this.getCurrentSize();
         this.display.innerHTML = size.join(' &times; ');
